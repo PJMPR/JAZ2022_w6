@@ -8,16 +8,31 @@ import com.example.queries.calculations.ICalculate;
 import com.example.queries.filters.IFilterPeople;
 import com.example.queries.results.FunctionResult;
 import com.example.queries.results.Results;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class QueryProcessor {
 
     List<ICalculate> calculates = new ArrayList<>();
     List<IFilterPeople> filters = new ArrayList<>();
     ICutToPage pageCutter;
+
+    public QueryProcessor() {
+        System.out.println("nic tu nie ma");
+    }
+
+    /**
+     * Wymaganany @Autowired gdy jest kilka konsttruktorów
+     */
+    //@Autowired
+    public QueryProcessor(List<ICalculate> calculates, List<IFilterPeople> filters, ICutToPage pageCutter) {
+        this.calculates = calculates;
+        this.filters = filters;
+        this.pageCutter = pageCutter;
+    }
 
     public Results GetResults(SearchParameters parameters, List<Person> data){
         Results results = new Results();
